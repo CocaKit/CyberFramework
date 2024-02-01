@@ -2,30 +2,30 @@
 
 namespace Controller;
 
+use Core\Controller;
 use Repository\UserRepository;
 use Entity\User;
 use Core\Route;
 
-class UserController
+class UserController extends Controller
 {
     #[Route('GET', '/temp/user/reg')]
-    public static function registration() : void
+    public function registration() : void
     {
-        readfile('templates/registration.html');
+        $this->response->render('registration.html');
     }
 
     #[Route('POST', '/temp/user/submit/reg')]
-    public static function save(UserRepository $userRepository) : void
+    public function save(UserRepository $userRepository) : void
     {
         if (!isset($_POST['username']) || !isset($_POST['userpass'])) {
-            echo json_encode(['ok' => false, 'msg' => 'name or pass is missing']);
-            exit();
+            $this->response->json(['ok' => false, 'msg' => 'name or pass is missing']);
         }
 
         $user = new User;
         $user->setName($_POST['username']);
         $user->setPassword($_POST['userpass']);
 
-        echo json_encode($userRepository->save($user));
+        $this->response->json($userRepository->save($user));
     }
 }

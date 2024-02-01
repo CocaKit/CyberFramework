@@ -3,7 +3,6 @@
 namespace Core;
 
 use Core\Entity;
-use PDO;
 
 interface Repository
 {
