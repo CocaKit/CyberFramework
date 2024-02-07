@@ -1,0 +1,1 @@
+docker run -d --privileged -p 80:80 -p 8000:8000 -v .:/var/www/CyberFramework cyber_web
